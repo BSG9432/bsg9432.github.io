@@ -1,0 +1,340 @@
+import {
+  Jumbotron,
+  Container,
+  Row,
+  Col,
+  Input,
+  Button,
+  ButtonGroup,
+  Form,
+} from 'reactstrap'
+import moment from 'moment'
+import ToggleButton from '../ToggleButton'
+
+let scores = []
+
+//I assume this is scores
+
+export default class extends React.Component {
+  state = {
+    deployed: 0,
+    goldInHoldAuto: 0,
+    silverInBayAuto: 0,
+    parkedAuto: 0,
+    bayInDepoAuto: 0,
+
+    goldInHold: 0,
+    silverInWallDepo: 0,
+    mineralsInDepo: 0,
+    silverInBay:0,
+
+    latch: 0,
+    robot1Park: 0,
+    robot2Park: 0,
+    mobileBay: 0,
+    parkedTele : 0,
+    bayInDepoTele: 0,
+    stolen: 0
+  }
+  //to check if everything worked?
+  componentDidMount() {
+    if (!localStorage.getItem('Score')) {
+      localStorage.setItem('Score', '')
+    }
+  }
+
+  //Silver in Depo "form" logic
+  onSilverIncrement = plus2 => {
+    if (plus2 === true) {
+      this.setState({
+        silverInWallDepo: (this.state.silverInWallDepo = parseInt(this.state.silverInWallDepo) + 2),
+      })
+    } else if (plus2 === false) {
+      this.setState({
+        silverInWallDepo: (this.state.silverInWallDepo = parseInt(this.state.silverInWallDepo) + 1),
+      })
+    }
+  }
+
+//Silver in Bay "form" logic
+  onSilverIncrement = plus2 => {
+    if (plus2 === true) {
+      this.setState({
+        silverInBayAuto: (this.state.silverInBayAuto = parseInt(this.state.silverInBayAuto) + 2),
+      })
+    } else if (plus2 === false) {
+      this.setState({
+        silverInBayAuto: (this.state.silverInBayAuto = parseInt(this.state.silverInBayAuto) + 1),
+      })
+    }
+  }
+
+  //Refresh when CLEAR is clicked
+  onClearClick = () => {
+    window.location.reload() // OOF
+  }
+
+  onKeyPress = event => {
+    if (event.which === 13 /* Enter */) {
+      event.preventDefault()
+    }
+  }
+
+  //scores for auton
+  calculateAutoScore = () =>
+    this.state.deployed * 35 +
+    this.state.goldInHoldAuto * 10 +
+    this.state.silverInBayAuto * 5 +
+    this.state.silverInWallDepo * 3 +
+    this.state.parkedAuto * 12 +
+    this.state.bayInDepoAuto *15
+
+  //scores for tele
+  calculateTeleScore = () => this.state.goldInHold * 6 + this.state.silverInBay * 3 + this.state.silverInWallDepo * 3 + this.state.mineralsInDepo
+
+  //scores for end game, and latch logic
+  calculateEndGameScore = () =>
+    (this.state.latch * 50 + this.state.robot1Park + this.state.robot2Park) + this.state.parkedTele * 10 + this.state.bayInDepoTele * 12
+
+  //function? to calculate steal amount  
+  calculateStealAmount = () => this.state.mineralsInDepo + this.state.silverInBay
+  //OVERALL SCORES
+  calculateFinalScore = () =>
+    this.calculateAutoScore() +
+    this.calculateTeleScore() +
+    this.calculateEndGameScore() -
+    this.calculateStealAmount()
+
+  handleDepotChange = event => {
+    if (event.target.value < 0) {
+      this.setState({ depot: 0 })
+    } else {
+      this.setState({ depot: event.target.value || 0 })
+    }
+  }
+
+  handleCargoChange = event => {
+    if (event.target.value < 0) {
+      this.setState({ cargo: 0 })
+    } else {
+      this.setState({ cargo: event.target.value || 0 })
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <div
+          style={{
+            paddingBottom: 15,
+            paddingTop: 15,
+            backgroundColor: '#cecece',
+            textAlign: 'center',
+            position: 'sticky',
+            top: 0,
+            zIndex: 2,
+          }}
+        >
+          <h1
+            style={{
+              borderRadius: '0.3rem',
+            }}
+          >
+            Score:{' '}
+            {this.calculateAutoScore() +
+              this.calculateTeleScore() +
+              this.calculateEndGameScore()- this.calculateStealAmount}
+          </h1>
+          <Button color="danger" size="xs" onClick={this.onClearClick}>
+            Clear
+          </Button>
+          <Button
+            style={{ marginLeft: '1em' }}
+            color="success  "
+            size="xs"
+            onClick={this.onSaveClick}
+          >
+            Save
+          </Button>
+        </div>
+        <Container style={{ marginTop: '3em' }}>
+          <Row>
+            <Col
+              style={{
+                display: 'table-cell',
+              }}
+            >
+              <Jumbotron style={{ minWidth: 280 }}>
+                <Row style={{ textAlign: 'center', marginBottom: '3em' }}>
+                  <Col>
+                    <h2>Autonomous: {this.calculateAutoScore()} </h2>
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center' }}>
+                  <Col>
+                    <h4>Landing</h4>
+                    <ToggleButton
+                      values={['0', '1', '2']}
+                      onChange={e => this.setState({ landing: e.selected })}
+                    />
+                  </Col>
+                  <Col>
+                    <h4>Sampling</h4>
+                    <ToggleButton
+                      values={['0', '1', '2']}
+                      onChange={e => this.setState({ sampling: e.selected })}
+                    />
+                  </Col>
+                </Row>
+
+                <Row style={{ textAlign: 'center' }}>
+                  <Col style={{ marginTop: '3em' }}>
+                    <h4>Alliance Depot Claiming</h4>
+                    <ToggleButton
+                      values={['0', '1', '2']}
+                      onChange={e =>
+                        this.setState({ depotClaiming: e.selected })
+                      }
+                    />
+                  </Col>
+                </Row>
+
+                <Row style={{ textAlign: 'center', marginTop: '3em' }}>
+                  <Col>
+                    <h4>Crater Parking</h4>
+                    <ToggleButton
+                      values={['0', '1', '2']}
+                      onChange={e => this.setState({ crater: e.selected })}
+                    />
+                  </Col>
+                </Row>
+              </Jumbotron>
+            </Col>
+
+            <Col
+              style={{
+                display: 'table-cell',
+              }}
+            >
+              <Jumbotron style={{ minWidth: 280 }}>
+                <Row style={{ textAlign: 'center', marginBottom: '3em' }}>
+                  <Col>
+                    <h2>Tele-Op: {this.calculateTeleScore()} </h2>
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center' }}>
+                  <Col>
+                    <h4>Minerals in Cargo Hold</h4>
+                    <Form>
+                      <Input
+                        type="number"
+                        value={this.state.cargo}
+                        cargo={this.state.cargo}
+                        onChange={this.handleCargoChange}
+                        onKeyPress={this.onKeyPress}
+                      />
+                    </Form>
+                    <ButtonGroup>
+                      <Button onClick={() => this.onCargoIncrement(false)}>
+                        +1
+                      </Button>
+                      <Button onClick={() => this.onCargoIncrement(true)}>
+                        +2
+                      </Button>
+                    </ButtonGroup>
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center', marginTop: '3em' }}>
+                  <Col>
+                    <h4>Minerals in Depot</h4>
+                    <Input
+                      type="number"
+                      value={this.state.depot}
+                      cargo={this.state.depot}
+                      onChange={this.handleDepotChange}
+                      onKeyPress={this.onKeyPress}
+                    />
+                    <ButtonGroup>
+                      <Button onClick={() => this.onDepotIncrement(false)}>
+                        +1
+                      </Button>
+                      <Button onClick={() => this.onDepotIncrement(true)}>
+                        +2
+                      </Button>
+                    </ButtonGroup>
+                  </Col>
+                </Row>
+              </Jumbotron>
+            </Col>
+
+            <Col
+              style={{
+                display: 'table-cell',
+              }}
+            >
+              <Jumbotron style={{ minWidth: 280 }}>
+                <Row style={{ textAlign: 'center', marginBottom: '3em' }}>
+                  <Col>
+                    <h2>End Game: {this.calculateEndGameScore()} </h2>
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center' }}>
+                  <Col>
+                    <h4>Latched Robots</h4>
+                    <ToggleButton
+                      values={['0', '1', '2']}
+                      onChange={e => this.setState({ latch: e.selected })}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center' }}>
+                  <Col style={{ marginTop: '3em' }}>
+                    <h4>Parked Robots</h4>
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center' }}>
+                  <Col>
+                    <h6>Robot 1</h6>
+                    <ToggleButton
+                      values={['Not Parked', 'In', 'Fully In']}
+                      onChange={e => {
+                        if (e.selected === 0) {
+                          this.setState({ robot1Park: 0 })
+                        } else if (e.selected === 1) {
+                          this.setState({ robot1Park: 15 })
+                        } else if (e.selected === 2) {
+                          this.setState({ robot1Park: 25 })
+                        } else {
+                          this.setState({ robot1Park: 0 })
+                        }
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ textAlign: 'center', paddingTop: 20 }}>
+                  <Col>
+                    <h6>Robot 2</h6>
+                    <ToggleButton
+                      values={['Not Parked', 'In', 'Fully In']}
+                      onChange={e => {
+                        if (e.selected === 0) {
+                          this.setState({ robot2Park: 0 })
+                        } else if (e.selected === 1) {
+                          this.setState({ robot2Park: 15 })
+                        } else if (e.selected === 2) {
+                          this.setState({ robot2Park: 25 })
+                        } else {
+                          this.setState({ robot2Park: 0 })
+                        }
+                      }}
+                    />
+                  </Col>
+                </Row>
+              </Jumbotron>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
+  }
+}

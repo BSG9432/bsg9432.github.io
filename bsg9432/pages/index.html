@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charSet="utf-8" class="next-head"/>
+      <link rel="preload" href="/_next/static/F6pgLv2J6BRHh31nS9KxV/pages/index.js" as="script"/>
+      <link rel="preload" href="/_next/static/F6pgLv2J6BRHh31nS9KxV/pages/_app.js" as="script"/>
+      <link rel="preload" href="/_next/static/F6pgLv2J6BRHh31nS9KxV/pages/_error.js" as="script"/>
+      <link rel="preload" href="/_next/static/runtime/webpack-42652fa8b82c329c0559.js" as="script"/>
+      <link rel="preload" href="/_next/static/chunks/commons.bc33bdc95e99b97ff931.js" as="script"/>
+      <link rel="preload" href="/_next/static/runtime/main-ddf7cbd213b16e484699.js" as="script"/>
+   </head>
+   <body>
+      <div id="__next">
+         <div data-reactroot="">
+            <head>
+               <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0"/>
+               <meta name="mobile-web-app-capable" content="yes"/>
+               <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+               <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"/>
+               <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossOrigin="anonymous"/>
+            </head>
+            <div>
+               <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                  <a href="/" class="navbar-brand">Mineral Mania Scorer</a><button type="button" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+                  <div class="collapse navbar-collapse">
+                     <ul class="ml-auto navbar-nav">
+                        <li class="nav-item"><a href="https://github.com/BSG9432/bsg9432.github.io" class="nav-link">GitHub</a></li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+            <div>
+               <div>
+                  <div style="padding-bottom:15px;padding-top:15px;background-color:#cecece;text-align:center;position:sticky;top:0;z-index:2">
+                     <h1 style="border-radius:0.3rem">
+                        Score:<!-- --> <!-- -->0
+                     </h1>
+                     <button type="button" class="btn btn-danger btn-xs">Clear</button>
+                  </div>
+                  <div style="margin-top:3em" class="container">
+                     <div class="row">
+                        <div style="display:table-cell" class="col">
+                           <div style="min-width:280px" class="jumbotron">
+                              <div style="text-align:center;margin-bottom:3em" class="row">
+                                 <div class="col">
+                                    <h2>
+                                       Autonomous: <!-- -->0<!-- --> 
+                                    </h2>
+                                 </div>
+                              </div>
+                              <div style="text-align:center" class="row">
+                                 <div class="col">
+                                    <h4>Deployed</h4>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">0</button><button type="button" class="btn btn-secondary">1</button><button type="button" class="btn btn-secondary">2</button></div>
+                                    </div>
+                                 </div>
+                                 <div class="col">
+                                    <h4>Gold(Cargo)</h4>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">0</button><button type="button" class="btn btn-secondary">1</button><button type="button" class="btn btn-secondary">2</button></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div style="text-align:center" class="row">
+                                 <div style="margin-top:3em" class="col">
+                                    <h4>Parked</h4>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">0</button><button type="button" class="btn btn-secondary">1</button><button type="button" class="btn btn-secondary">2</button></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div style="text-align:center;margin-top:3em" class="row">
+                                 <div class="col">
+                                    <h4>Silver In Bay</h4>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">0</button><button type="button" class="btn btn-secondary">1</button><button type="button" class="btn btn-secondary">2</button></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div style="display:table-cell" class="col">
+                           <div style="min-width:280px" class="jumbotron">
+                              <div style="text-align:center;margin-bottom:3em" class="row">
+                                 <div class="col">
+                                    <h2>
+                                       Tele-Op: <!-- -->0<!-- --> 
+                                    </h2>
+                                 </div>
+                              </div>
+                              <div style="text-align:center" class="row">
+                                 <div class="col">
+                                    <h4>Minerals in Cargo Hold</h4>
+                                    <form class=""><input type="number" value="0" cargo="0" class="form-control"/></form>
+                                    <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">+1</button><button type="button" class="btn btn-secondary">+2</button></div>
+                                 </div>
+                              </div>
+                              <div style="text-align:center;margin-top:3em" class="row">
+                                 <div class="col">
+                                    <h4>Minerals in Depot</h4>
+                                    <input type="number" value="0" cargo="0" class="form-control"/>
+                                    <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">+1</button><button type="button" class="btn btn-secondary">+2</button></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div style="display:table-cell" class="col">
+                           <div style="min-width:280px" class="jumbotron">
+                              <div style="text-align:center;margin-bottom:3em" class="row">
+                                 <div class="col">
+                                    <h2>
+                                       End Game: <!-- -->0<!-- --> 
+                                    </h2>
+                                 </div>
+                              </div>
+                              <div style="text-align:center" class="row">
+                                 <div class="col">
+                                    <h4>Latched Robots</h4>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">0</button><button type="button" class="btn btn-secondary">1</button><button type="button" class="btn btn-secondary">2</button></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div style="text-align:center" class="row">
+                                 <div style="margin-top:3em" class="col">
+                                    <h4>Parked Robots</h4>
+                                 </div>
+                              </div>
+                              <div style="text-align:center" class="row">
+                                 <div class="col">
+                                    <h6>Robot 1</h6>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">Not Parked</button><button type="button" class="btn btn-secondary">In</button><button type="button" class="btn btn-secondary">Fully In</button></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div style="text-align:center;padding-top:20px" class="row">
+                                 <div class="col">
+                                    <h6>Robot 2</h6>
+                                    <div>
+                                       <div role="group" class="btn-group"><button type="button" class="btn btn-secondary">Not Parked</button><button type="button" class="btn btn-secondary">In</button><button type="button" class="btn btn-secondary">Fully In</button></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>__NEXT_DATA__ = {"props":{"pageProps":{}},"page":"/","pathname":"/","query":{},"buildId":"F6pgLv2J6BRHh31nS9KxV"};__NEXT_LOADED_PAGES__=[];__NEXT_REGISTER_PAGE=function(r,f){__NEXT_LOADED_PAGES__.push([r, f])}</script><script async="" id="__NEXT_PAGE__/" src="/_next/static/F6pgLv2J6BRHh31nS9KxV/pages/index.js"></script><script async="" id="__NEXT_PAGE__/_app" src="/_next/static/F6pgLv2J6BRHh31nS9KxV/pages/_app.js"></script><script async="" id="__NEXT_PAGE__/_error" src="/_next/static/F6pgLv2J6BRHh31nS9KxV/pages/_error.js"></script><script src="/_next/static/runtime/webpack-42652fa8b82c329c0559.js" async=""></script><script src="/_next/static/chunks/commons.bc33bdc95e99b97ff931.js" async=""></script><script src="/_next/static/runtime/main-ddf7cbd213b16e484699.js" async=""></script>
+   </body>
+</html>
